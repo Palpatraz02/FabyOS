@@ -50,7 +50,7 @@ echo "::endgroup::"
 echo "::group:: Install Additional Utilities"
 
 # Install additional utilities that work well with COSMIC
-dnf5 install -y \
+dnf -y install \
     kitty \
     flatpak \
     xdg-desktop-portal-cosmic

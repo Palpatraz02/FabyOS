@@ -17,7 +17,7 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub
 EOF
 
 # Install Chrome
-dnf5 install -y google-chrome-stable
+dnf -y install google-chrome-stable
 
 # Clean up repo file (required - repos don't work at runtime in bootc images)
 rm -f /etc/yum.repos.d/google-chrome.repo
