@@ -5,7 +5,7 @@ set -eoux pipefail
 
 # Source helper functions
 # shellcheck source=/dev/null
-source /ctx/build/copr-helpers.sh
+source /ctx/copr-helpers.sh
 
 
 echo "::group:: Install COSMIC Desktop"

@@ -7,11 +7,11 @@ sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
 ## Install cosmic
 
-bash /ctx/build/cosmic.sh
+bash /ctx/cosmic.sh
 
 ### Install packages
 
-bash /ctx/build/chrome.sh
+bash /ctx/chrome.sh
 
 
 dnf -y install papirus-icon-theme bibata-cursor-theme
