@@ -5,6 +5,9 @@ set -ouex pipefail
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
+curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo -o /etc/yum.repos.d/terra.repo
+dnf -y install terra-release
+
 ## Install cosmic
 bash /ctx/cosmic.sh
 
@@ -33,6 +36,7 @@ echo 'L+ /var/run/docker.sock - - - - /run/podman/podman.sock' > /usr/lib/tmpfil
 
 systemctl enable podman.socket
 
+rm -f /etc/yum.repos.d/terra*.repo
 dnf5 -y clean all
 rm -rf /run/dnf /run/selinux-policy
 rm -rf /var/lib/dnf
