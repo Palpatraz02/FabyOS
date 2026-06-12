@@ -34,8 +34,8 @@ echo "::group:: Configure Display Manager"
 systemctl enable cosmic-greeter
 
 # Set COSMIC as default session
-mkdir -p /etc/X11/sessions
-cat > /etc/X11/sessions/cosmic.desktop << 'COSMICDESKTOP'
+mkdir -p /usr/share/wayland-sessions
+cat > /usr/share/wayland-sessions/cosmic.desktop << 'COSMICDESKTOP'
 [Desktop Entry]
 Name=COSMIC
 Comment=COSMIC Desktop Environment
