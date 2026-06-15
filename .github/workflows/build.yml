@@ -28,7 +28,7 @@ concurrency:
 jobs:
   build_push:
     name: Build and push image
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
 
     permissions:
       contents: read
@@ -47,8 +47,17 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
       # This is optional, but if you see that your builds are way too big for the runners, you can enable this by uncommenting the following lines:
-      #- name: Maximize build space
-      #  uses: ublue-os/remove-unwanted-software@695eb75bc387dbcd9685a8e72d23439d8686cba6
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # This frees about 30+ GB by removing unnecessary runner toolchains
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
 
       - name: Get current date
         id: date
