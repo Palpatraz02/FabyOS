@@ -31,7 +31,8 @@ echo "::endgroup::"
 echo "::group:: Configure Display Manager"
 
 # Enable cosmic-greeter (COSMIC's display manager)
-systemctl enable cosmic-greeter
+systemctl enable -f cosmic-greeter.service
+systemctl set-default graphical.target
 
 # Set COSMIC as default session
 mkdir -p /usr/share/wayland-sessions
