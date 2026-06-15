@@ -50,12 +50,21 @@ echo "::endgroup::"
 
 echo "::group:: Install Additional Utilities"
 
-# Install additional utilities that work well with COSMIC
+# Install additional utilities and essential desktop components
 dnf -y install \
     kitty \
     flatpak \
-    xdg-desktop-portal-cosmic
+    xdg-desktop-portal-cosmic \
+    pipewire wireplumber pipewire-pulseaudio pipewire-alsa \
+    NetworkManager-wifi bluez bluez-obexd \
+    upower power-profiles-daemon \
+    xdg-user-dirs wl-clipboard \
+    google-noto-color-emoji-fonts google-noto-sans-fonts
 
+# Enable necessary services
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable power-profiles-daemon
 echo "Additional utilities installed"
 echo "::endgroup::"
 

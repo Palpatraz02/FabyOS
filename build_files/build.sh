@@ -38,6 +38,11 @@ echo 'L+ /var/run/docker.sock - - - - /run/podman/podman.sock' > /usr/lib/tmpfil
 systemctl enable podman.socket
 
 rm -f /etc/yum.repos.d/terra*.repo
+
+# Temporary fix for repo.rakuos.org 403 Forbidden error during ISO build
+sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.d/*.repo || true
+sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
+
 dnf5 -y clean all
 rm -rf /run/dnf /run/selinux-policy
 rm -rf /var/lib/dnf
