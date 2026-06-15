@@ -57,14 +57,13 @@ dnf -y install \
     xdg-desktop-portal-cosmic \
     pipewire wireplumber pipewire-pulseaudio pipewire-alsa \
     NetworkManager-wifi bluez bluez-obexd \
-    upower power-profiles-daemon \
+    upower \
     xdg-user-dirs wl-clipboard \
     google-noto-color-emoji-fonts google-noto-sans-fonts
 
 # Enable necessary services
 systemctl enable NetworkManager
 systemctl enable bluetooth
-systemctl enable power-profiles-daemon
 echo "Additional utilities installed"
 echo "::endgroup::"
 
