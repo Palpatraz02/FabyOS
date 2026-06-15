@@ -59,7 +59,8 @@ dnf -y install \
     NetworkManager-wifi bluez bluez-obexd \
     upower \
     xdg-user-dirs wl-clipboard \
-    google-noto-color-emoji-fonts google-noto-sans-fonts
+    google-noto-color-emoji-fonts google-noto-sans-fonts \
+    coreutils
 
 # Enable necessary services
 systemctl enable NetworkManager
