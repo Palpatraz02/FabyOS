@@ -20,13 +20,9 @@ copr_install_isolated() {
 
     repo_id="copr:copr.fedorainfracloud.org:${copr_name//\//:}"
 
-    # Dynamically determine the fedora chroot (e.g., fedora-44-x86_64)
-    local chroot="fedora-$(rpm -E %fedora)-$(uname -m)"
+    echo "Installing ${packages[*]} from COPR $copr_name (isolated)"
 
-    echo "Installing ${packages[*]} from COPR $copr_name (isolated) using chroot $chroot"
-
-    # Explicitly pass the chroot to the enable command
-    dnf -y copr enable "$copr_name" "$chroot"
+    dnf -y copr enable "$copr_name"
     dnf -y copr disable "$copr_name"
     dnf -y install --enablerepo="$repo_id" "${packages[@]}"
 
