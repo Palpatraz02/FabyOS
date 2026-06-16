@@ -4,8 +4,7 @@ COPY build_files /
 
 # Base Image
 FROM quay.io/rakuos/rakuos-base-nvidia:latest
-RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
-    sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
+RUN sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
     sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release
 
 ## Other possible base images include:
