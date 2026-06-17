@@ -8,10 +8,13 @@ RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
     sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
     sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release
 
-RUN if [ -d /boot/efi/EFI/rakuos ]; then cp -r /boot/efi/EFI/rakuos /boot/efi/EFI/fedora; fi && \
-    if [ -d /usr/lib/ostree-boot/efi/EFI/rakuos ]; then cp -r /usr/lib/ostree-boot/efi/EFI/rakuos /usr/lib/ostree-boot/efi/EFI/fedora; fi
+RUN if [ -d /boot/efi/EFI/rakuos ]; \
+    then cp -r /boot/efi/EFI/rakuos /boot/efi/EFI/fedora; fi && \
+    if [ -d /usr/lib/ostree-boot/efi/EFI/rakuos ]; \
+    then cp -r /usr/lib/ostree-boot/efi/EFI/rakuos /usr/lib/ostree-boot/efi/EFI/fedora; fi && \
+    bootupctl backend generate-update-metadata
 
-## Other possible base images include:
+    ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
 # FROM ghcr.io/ublue-os/bluefin-nvidia:stable
 #
