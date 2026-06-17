@@ -31,6 +31,10 @@ cp /ctx/res/logo/logo.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
 
 cp /ctx/res/logo/logo.png /usr/share/pixmaps/system-logo-white.png
 
+## Rebuild initramfs to apply the new boot logo
+KVER=$(cd /usr/lib/modules && echo *)
+dracut -vf /usr/lib/modules/$KVER/initramfs.img "$KVER"
+
 ## Setup Podman
 dnf -y install docker-compose podman-docker
 echo 'L+ /var/run/docker.sock - - - - /run/podman/podman.sock' > /usr/lib/tmpfiles.d/podman-docker-socket.conf
