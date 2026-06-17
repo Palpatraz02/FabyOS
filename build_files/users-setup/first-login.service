@@ -6,7 +6,7 @@ ConditionPathExists=!%h/.local/state/first-login-done
 [Service]
 Type=oneshot
 # Run the script we created
-ExecStart=/usr/bin/bash /usr/local/bin/users-setup/first-login.sh
+ExecStart=/usr/bin/bash /usr/bin/users-setup/first-login.sh
 # Create a marker file so it never runs again for this user
 ExecStartPost=/usr/bin/touch %h/.local/state/first-login-done
 

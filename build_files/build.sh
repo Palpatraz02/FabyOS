@@ -48,9 +48,9 @@ sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.
 sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
 
 # 1. Install the setup script
-cp -r /ctx/users-setup /usr/local/bin/
-chmod +x /usr/local/bin/users-setup/first-login.sh
-chmod +x /usr/local/bin/users-setup/faby02/setup.sh
+cp -r /ctx/users-setup /usr/bin/
+chmod +x /usr/bin/users-setup/first-login.sh
+chmod +x /usr/bin/users-setup/faby02/setup.sh
 
 # 2. Install the user service
 mkdir -p /usr/lib/systemd/user/
