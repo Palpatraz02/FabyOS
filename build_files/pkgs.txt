@@ -1,0 +1,21 @@
+# Terminal multiplexer and utilities
+tmux
+git
+zoxide
+bat
+eza
+fzf
+fd
+
+# Container management
+distrobox
+
+# Utilities
+zip
+python
+ipython
+python-uv
+pypy3
+neovim
+lazydocker
+lazygit

@@ -1,0 +1,14 @@
+[Unit]
+Description=First login setup script
+# This condition ensures it only runs once per user
+ConditionPathExists=!%h/.local/state/first-login-done
+
+[Service]
+Type=oneshot
+# Run the script we created
+ExecStart=/usr/bin/bash /usr/local/bin/setup-dotfiles.sh
+# Create a marker file so it never runs again for this user
+ExecStartPost=/usr/bin/touch %h/.local/state/first-login-done
+
+[Install]
+WantedBy=default.target

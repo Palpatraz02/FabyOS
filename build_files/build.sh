@@ -17,10 +17,10 @@ bash /ctx/chrome.sh
 
 
 dnf -y install papirus-icon-theme bibata-cursor-theme
-dnf -y install distrobox tmux
+sudo dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
 
 ## Fish installation and configuration
-dnf -y install fish
+dnf -y install fish fisher
 sed -i 's|^SHELL=/bin/bash|SHELL=/usr/bin/fish|' /etc/default/useradd
 mkdir -p /etc/skel/.config/
 cp -r /ctx/dotfiles/fish /etc/skel/.config/
@@ -42,6 +42,17 @@ rm -f /etc/yum.repos.d/terra*.repo
 # Temporary fix for repo.rakuos.org 403 Forbidden error during ISO build
 sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.d/*.repo || true
 sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
+
+# 1. Install the setup script
+cp -r /ctx/users-setup /usr/local/bin/
+chmod +x /usr/local/bin/user-setup/setup.sh
+
+# 2. Install the user service
+mkdir -p /usr/lib/systemd/user/
+cp /ctx/users-setup/first-login.service /usr/lib/systemd/user/
+
+# 3. Enable the service globally for all users
+systemctl --global enable first-login.service
 
 dnf5 -y clean all
 rm -rf /run/dnf /run/selinux-policy
