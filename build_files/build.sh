@@ -20,7 +20,7 @@ dnf -y install papirus-icon-theme bibata-cursor-theme
 dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
 
 ## Fish installation and configuration
-dnf -y install fish fisher
+dnf -y install fish
 sed -i 's|^SHELL=/bin/bash|SHELL=/usr/bin/fish|' /etc/default/useradd
 mkdir -p /etc/skel/.config/
 cp -r /ctx/dotfiles/fish /etc/skel/.config/
