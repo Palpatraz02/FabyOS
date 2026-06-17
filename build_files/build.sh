@@ -17,7 +17,7 @@ bash /ctx/chrome.sh
 
 
 dnf -y install papirus-icon-theme bibata-cursor-theme
-sudo dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
+dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
 
 ## Fish installation and configuration
 dnf -y install fish fisher
@@ -45,7 +45,8 @@ sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
 
 # 1. Install the setup script
 cp -r /ctx/users-setup /usr/local/bin/
-chmod +x /usr/local/bin/user-setup/setup.sh
+chmod +x /usr/local/bin/users-setup/first-login.sh
+chmod +x /usr/local/bin/users-setup/faby02/setup.sh
 
 # 2. Install the user service
 mkdir -p /usr/lib/systemd/user/
