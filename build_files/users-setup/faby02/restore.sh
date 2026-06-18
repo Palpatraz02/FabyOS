@@ -9,8 +9,8 @@ REPO_URL="https://github.com/Palpatraz02/dotfiles.git"
 echo "🚀 Starting Chezmoi secure bootstrap..."
 
 # 1. Detect package manager and install dependencies
-if ! command -v chezmoi &> /dev/null || ! command -v age &> /dev/null; then
-    echo "📦 Dependencies missing. Yu must install chezmoi and age..."
+if ! command -v chezmoi &> /dev/null || ! command -v age &> /dev/null || ! command -v bw &> /dev/null; then
+    echo "📦 Dependencies missing. You must install chezmoi, age, and bitwarden-cli..."
     exit 1
 fi
 
@@ -18,13 +18,25 @@ fi
 echo "📂 Setting up secure configuration paths..."
 mkdir -p "$HOME/.config/chezmoi"
 
-# 3. Interactively capture the decryption identity
-echo "🔑 Please paste your Age private key (starts with 'AGE-SECRET-KEY-1...'):"
-# Read input silently so the secret key doesn't leak onto the monitor screen
-read -rs AGE_KEY
+# 3. Authenticate and extract the decryption identity
+echo "🌐 Configuring Bitwarden for the EU instance..."
+bw config server https://vault.bitwarden.eu
+
+echo "🔐 Authenticating with Bitwarden..."
+# Try to login first (for fresh machines). If already logged in, fallback to unlock.
+export BW_SESSION=$(bw login --raw 2>/dev/null || bw unlock --raw)
+
+if [ -z "$BW_SESSION" ]; then
+    echo "❌ Error: Failed to unlock Bitwarden vault. Aborting bootstrap process."
+    exit 1
+fi
+
+echo "📥 Fetching Age Master Key from vault..."
+# Grabs the exact text from your secure note
+AGE_KEY=$(bw get notes "Chezmoi Age Master Key")
 
 if [ -z "$AGE_KEY" ]; then
-    echo "❌ Error: No Age key provided. Aborting bootstrap process."
+    echo "❌ Error: Could not find 'Chezmoi Age Master Key' in Bitwarden. Aborting."
     exit 1
 fi
 

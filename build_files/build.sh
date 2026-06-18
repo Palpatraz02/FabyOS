@@ -12,12 +12,18 @@ dnf -y install terra-release
 ## Install cosmic
 bash /ctx/cosmic.sh
 
-### Install packages
+### Install chrome
 bash /ctx/chrome.sh
 
 
 dnf -y install papirus-icon-theme bibata-cursor-theme
 dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
+
+## Install bitwarden cli
+curl -L -o /tmp/bw.zip "https://vault.bitwarden.com/download/?app=cli&platform=linux"
+unzip /tmp/bw.zip -d /usr/bin/
+chmod +x /usr/bin/bw
+rm /tmp/bw.zip
 
 ## Fish installation and configuration
 dnf -y install fish

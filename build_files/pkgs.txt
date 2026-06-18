@@ -12,10 +12,13 @@ distrobox
 
 # Utilities
 zip
+unzip
 python
 ipython
 python-uv
 pypy3
+nodejs
+npm
 neovim
 chezmoi
 age
