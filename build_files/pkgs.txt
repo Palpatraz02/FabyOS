@@ -17,3 +17,5 @@ ipython
 python-uv
 pypy3
 neovim
+chezmoi
+age
