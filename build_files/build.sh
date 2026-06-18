@@ -58,10 +58,10 @@ sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
 
 ## System setup
 cp -r /ctx/system-setup /usr/libexec/
-chmod +x /usr/libexec/system-setup/system-first-boot.sh
+chmod +x /usr/libexec/system-setup/first-boot.sh
 
-cp /ctx/system-setup/system-first-boot.service /usr/lib/systemd/system/
-systemctl enable system-first-boot.service
+cp /ctx/system-setup/first-boot.service /usr/lib/systemd/system/
+systemctl enable first-boot.service
 
 # 1. Install the setup script
 cp -r /ctx/users-setup /usr/libexec/

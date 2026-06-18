@@ -7,7 +7,7 @@ ConditionPathExists=!/var/lib/system-first-boot-done
 
 [Service]
 Type=oneshot
-ExecStart=/usr/libexec/system-setup/system-first-boot.sh
+ExecStart=/usr/libexec/system-setup/first-boot.sh
 # Create the marker file after successful execution
 ExecStartPost=/usr/bin/touch /var/lib/system-first-boot-done
 RemainAfterExit=yes
