@@ -23,7 +23,8 @@ dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
 dnf -y install fish
 sed -i 's|^SHELL=/bin/bash|SHELL=/usr/bin/fish|' /etc/default/useradd
 mkdir -p /etc/skel/.config/
-cp -r /ctx/dotfiles/fish /etc/skel/.config/
+cp -r /ctx/default_conf/faby-fish /usr/share/
+
 
 ## Change logo
 cp /ctx/res/logo/logo.png /usr/share/plymouth/themes/spinner/watermark.png
