@@ -30,7 +30,7 @@ dnf -y install fish
 sed -i 's|^SHELL=/bin/bash|SHELL=/usr/bin/fish|' /etc/default/useradd
 mkdir -p /usr/share/fish/
 mkdir -p /etc/skel/.config/
-cp -r /ctx/default/fish/ /usr/share/
+cp -r /ctx/defaults/fish/ /usr/share/
 cp -r /ctx/dotfiles/fish/ /etc/skel/.config
 
 
