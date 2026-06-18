@@ -1,6 +1,3 @@
-source ~/.config/fish/conf.d/theme.fish
-source ~/.config/fish/conf.d/generic_aliases.fish
-
 if not set -q CONTAINER_ID
 
     alias update='sudo pacman -Syu'
@@ -11,8 +8,8 @@ if not set -q CONTAINER_ID
 
     alias kali='distrobox enter --root kali'
     alias arch='distrobox enter arch'
-    
-   
+
+
 else
     alias sysshell='distrobox-host-exec env SYSTEM_SHELL_MODE=1 fish'
     alias host='distrobox-host-exec -- '

@@ -22,8 +22,10 @@ dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
 ## Fish installation and configuration
 dnf -y install fish
 sed -i 's|^SHELL=/bin/bash|SHELL=/usr/bin/fish|' /etc/default/useradd
+mkdir -p /usr/share/fish/
 mkdir -p /etc/skel/.config/
-cp -r /ctx/default_conf/faby-fish /usr/share/
+cp -r /ctx/default/fish/ /usr/share/
+cp -r /ctx/dotfiles/fish/ /etc/skel/.config
 
 
 ## Change logo
@@ -51,7 +53,9 @@ sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
 # 1. Install the setup script
 cp -r /ctx/users-setup /usr/libexec/
 chmod +x /usr/libexec/users-setup/first-login.sh
+
 chmod +x /usr/libexec/users-setup/faby02/setup.sh
+chmod +x /usr/libexec/users-setup/faby02/restore.sh
 
 # 2. Install the user service
 mkdir -p /usr/lib/systemd/user/
