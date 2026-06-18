@@ -56,6 +56,13 @@ rm -f /etc/yum.repos.d/terra*.repo
 sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.d/*.repo || true
 sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
 
+## System setup
+cp -r /ctx/system-setup /usr/libexec/
+chmod +x /usr/libexec/system-setup/system-first-boot.sh
+
+cp /ctx/system-setup/system-first-boot.service /usr/lib/systemd/system/
+systemctl enable system-first-boot.service
+
 # 1. Install the setup script
 cp -r /ctx/users-setup /usr/libexec/
 chmod +x /usr/libexec/users-setup/first-login.sh
