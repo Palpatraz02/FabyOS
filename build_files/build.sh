@@ -10,7 +10,6 @@ curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo -o /e
 dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
-dnf -y swap uutils-coreutils coreutils
 
 ## Fish installation and configuration
 dnf -y install fish
