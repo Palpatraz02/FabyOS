@@ -26,6 +26,11 @@ cp /ctx/res/logo/logo.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
 
 cp /ctx/res/logo/logo.png /usr/share/pixmaps/system-logo-white.png
 
+## Change GRUB option name
+if [ -f /etc/default/grub ]; then
+    sed -i 's/^GRUB_DISTRIBUTOR=.*/GRUB_DISTRIBUTOR="FabyOS"/' /etc/default/grub
+fi
+
 ## Rebuild initramfs to apply the new boot logo
 KVER=$(cd /usr/lib/modules && echo *)
 dracut -vf --no-hostonly --add ostree /usr/lib/modules/$KVER/initramfs.img "$KVER"

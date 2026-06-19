@@ -6,7 +6,9 @@ COPY build_files /
 FROM quay.io/rakuos/rakuos-base-nvidia:latest
 RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
     sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
-    sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release
+    sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release && \
+    sed -i 's/^VARIANT=.*/VARIANT="FabyOS"/' /etc/os-release && \
+    sed -i 's/^VARIANT_ID=.*/VARIANT_ID=fabyos/' /etc/os-release
 
 RUN if [ -d /boot/efi/EFI/rakuos ]; \
     then mv /boot/efi/EFI/rakuos /boot/efi/EFI/fedora; fi && \
