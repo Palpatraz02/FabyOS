@@ -18,13 +18,21 @@ fi
 echo "📂 Setting up secure configuration paths..."
 mkdir -p "$HOME/.config/chezmoi"
 
-# 3. Authenticate and extract the decryption identity
-echo "🌐 Configuring Bitwarden for the EU instance..."
-bw config server https://vault.bitwarden.eu
 
 echo "🔐 Authenticating with Bitwarden..."
-# Try to login first (for fresh machines). If already logged in, fallback to unlock.
-export BW_SESSION=$(bw login --raw 2>/dev/null || bw unlock --raw)
+
+# Check if the CLI is completely unauthenticated
+if bw status | grep -q '"status":"unauthenticated"'; then
+    echo "🌐 Configuring Bitwarden for the EU instance..."
+    bw config server https://vault.bitwarden.eu
+
+    echo "👤 Please log in to your Bitwarden account:"
+    bw login
+fi
+
+# Now that we are logged in, unlock the vault to get the session key
+echo "🔓 Please enter your Master Password to unlock the vault:"
+export BW_SESSION=$(bw unlock --raw)
 
 if [ -z "$BW_SESSION" ]; then
     echo "❌ Error: Failed to unlock Bitwarden vault. Aborting bootstrap process."
