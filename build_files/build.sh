@@ -9,7 +9,7 @@ sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo -o /etc/yum.repos.d/terra.repo
 dnf -y install terra-release
 
-bash /ctx/
+bash /ctx/apps/install-apps.sh
 
 ## Fish installation and configuration
 dnf -y install fish
@@ -28,7 +28,7 @@ cp /ctx/res/logo/logo.png /usr/share/pixmaps/system-logo-white.png
 
 ## Rebuild initramfs to apply the new boot logo
 KVER=$(cd /usr/lib/modules && echo *)
-dracut -vf /usr/lib/modules/$KVER/initramfs.img "$KVER"
+dracut -vf --no-hostonly --add ostree /usr/lib/modules/$KVER/initramfs.img "$KVER"
 
 ## Setup Podman
 dnf -y install docker-compose podman-docker
