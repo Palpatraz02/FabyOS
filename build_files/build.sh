@@ -29,6 +29,18 @@ cp /ctx/res/logo/logo.png /usr/share/pixmaps/system-logo-white.png
 ## Change GRUB option name
 if [ -f /etc/default/grub ]; then
     sed -i 's/^GRUB_DISTRIBUTOR=.*/GRUB_DISTRIBUTOR="FabyOS"/' /etc/default/grub
+
+    if grep -q "^GRUB_TIMEOUT=" /etc/default/grub; then
+        sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/' /etc/default/grub
+    else
+        echo 'GRUB_TIMEOUT=1' >> /etc/default/grub
+    fi
+
+    if grep -q "^GRUB_TIMEOUT_STYLE=" /etc/default/grub; then
+        sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
+    else
+        echo 'GRUB_TIMEOUT_STYLE=hidden' >> /etc/default/grub
+    fi
 fi
 
 ## Rebuild initramfs to apply the new boot logo
