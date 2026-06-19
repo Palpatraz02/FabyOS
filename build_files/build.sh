@@ -9,21 +9,7 @@ sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo -o /etc/yum.repos.d/terra.repo
 dnf -y install terra-release
 
-## Install cosmic
-bash /ctx/cosmic.sh
-
-### Install chrome
-bash /ctx/chrome.sh
-
-
-dnf -y install papirus-icon-theme bibata-cursor-theme
-dnf -y install $(grep -v '^#' /ctx/pkgs.txt)
-
-## Install bitwarden cli
-curl -L -o /tmp/bw.zip "https://vault.bitwarden.com/download/?app=cli&platform=linux"
-unzip /tmp/bw.zip -d /usr/bin/
-chmod +x /usr/bin/bw
-rm /tmp/bw.zip
+bash /ctx/
 
 ## Fish installation and configuration
 dnf -y install fish

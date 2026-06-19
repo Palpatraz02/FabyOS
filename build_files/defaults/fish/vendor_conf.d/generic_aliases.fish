@@ -9,9 +9,6 @@ alias pypy='pypy3'
 alias grep='grep --color'
 alias ip='ip --color=auto'
 
-alias vim='nvim'
-alias vi='nvim'
-
 alias la='eza -al --color=always --group-directories-first --icons'
 alias ls='eza -a --color=always --group-directories-first --icons'
 alias ll='eza -l --color=always --group-directories-first --icons'
