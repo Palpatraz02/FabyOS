@@ -59,7 +59,7 @@ dnf -y install \
     xorg-x11-server-Xwayland \
     polkit accountsservice \
     gvfs gvfs-mtp gvfs-gphoto2 gvfs-smb udisks2 \
-    tkit \
+    rtkit \
     xdg-utils shared-mime-info desktop-file-utils \
     alsa-utils pavucontrol \
     brightnessctl playerctl \
