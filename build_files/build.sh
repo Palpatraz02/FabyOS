@@ -11,6 +11,21 @@ dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
 
+## Theme defaults
+mkdir -p /usr/share/icons/default
+cat > /usr/share/icons/default/index.theme << 'THEMEDEFAULTS'
+[Icon Theme]
+Inherits=Bibata-Modern-Ice
+THEMEDEFAULTS
+
+mkdir -p /etc/skel/.config/gtk-3.0 /etc/skel/.config/gtk-4.0
+cat > /etc/skel/.config/gtk-3.0/settings.ini << 'GTKSETTINGS'
+[Settings]
+gtk-icon-theme-name=Papirus
+gtk-cursor-theme-name=Bibata-Modern-Classic
+GTKSETTINGS
+cp /etc/skel/.config/gtk-3.0/settings.ini /etc/skel/.config/gtk-4.0/settings.ini
+
 
 
 ## Fish installation and configuration

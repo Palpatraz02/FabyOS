@@ -23,3 +23,5 @@ npm
 neovim
 chezmoi
 age
+curl
+fontconfig
