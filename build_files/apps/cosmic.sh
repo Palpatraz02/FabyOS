@@ -81,7 +81,6 @@ dnf -y install \
 systemctl enable NetworkManager
 systemctl enable bluetooth
 systemctl enable cups
-systemctl enable power-profiles-daemon
 systemctl enable switcheroo-control
 systemctl enable firewalld
 echo "Additional utilities installed"
