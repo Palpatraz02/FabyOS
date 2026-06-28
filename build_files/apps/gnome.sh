@@ -18,7 +18,7 @@ dnf -y install \
     gnome-system-monitor \
     gnome-disk-utility \
     gnome-tweaks \
-    file-roller\
+    file-roller \
     loupe \
     xdg-desktop-portal-gnome
 
@@ -68,6 +68,7 @@ dnf -y install \
     iio-sensor-proxy geoclue2 bolt \
     upower \
     xdg-user-dirs wl-clipboard \
+    curl unzip python3 dconf \
     google-noto-color-emoji-fonts google-noto-sans-fonts \
     google-noto-serif-fonts google-noto-sans-mono-fonts \
     liberation-fonts dejavu-sans-fonts \
@@ -82,6 +83,62 @@ systemctl enable switcheroo-control
 systemctl enable firewalld
 
 echo "Additional utilities installed"
+echo "::endgroup::"
+
+echo "::group:: Install GNOME Extensions"
+
+install_gnome_extension() {
+    local extension_uuid="$1"
+    local shell_version
+    local tmpdir
+    local download_url
+
+    shell_version="$(gnome-shell --version | awk '{print $3}' | cut -d. -f1,2)"
+    tmpdir="$(mktemp -d)"
+
+    download_url="$(
+        python3 - "${extension_uuid}" "${shell_version}" << 'PY'
+import json
+import sys
+import urllib.parse
+import urllib.request
+
+uuid = sys.argv[1]
+shell_version = sys.argv[2]
+query = urllib.parse.urlencode({"uuid": uuid, "shell_version": shell_version})
+with urllib.request.urlopen(f"https://extensions.gnome.org/extension-info/?{query}") as response:
+    data = json.load(response)
+
+print(urllib.parse.urljoin("https://extensions.gnome.org", data["download_url"]))
+PY
+    )"
+
+    curl -fsSL "${download_url}" -o "${tmpdir}/${extension_uuid}.zip"
+    rm -rf "/usr/share/gnome-shell/extensions/${extension_uuid}"
+    mkdir -p "/usr/share/gnome-shell/extensions/${extension_uuid}"
+    unzip -q "${tmpdir}/${extension_uuid}.zip" -d "/usr/share/gnome-shell/extensions/${extension_uuid}"
+    chmod -R a+rX "/usr/share/gnome-shell/extensions/${extension_uuid}"
+    rm -rf "${tmpdir}"
+}
+
+gnome_extensions=(
+    "tilingshell@ferrarodomenico.com"
+    "just-perfection-desktop@just-perfection"
+    "dash-to-dock@micxgx.gmail.com"
+)
+
+for extension_uuid in "${gnome_extensions[@]}"; do
+    install_gnome_extension "${extension_uuid}"
+done
+
+mkdir -p /etc/dconf/db/local.d
+cat > /etc/dconf/db/local.d/00-gnome-extensions << 'GNOMEEXTENSIONS'
+[org/gnome/shell]
+enabled-extensions=['tilingshell@ferrarodomenico.com', 'just-perfection-desktop@just-perfection', 'dash-to-dock@micxgx.gmail.com']
+GNOMEEXTENSIONS
+dconf update
+
+echo "GNOME extensions installed and enabled by default"
 echo "::endgroup::"
 
 echo "GNOME desktop installation complete!"
