@@ -6,6 +6,7 @@ bat
 eza
 fzf
 fd
+jq
 
 # Container management
 distrobox

@@ -11,6 +11,8 @@ dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
 
+
+
 ## Fish installation and configuration
 dnf -y install fish
 sed -i 's|^SHELL=/bin/bash|SHELL=/usr/bin/fish|' /etc/default/useradd
