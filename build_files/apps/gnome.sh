@@ -18,6 +18,8 @@ dnf -y install \
     gnome-system-monitor \
     gnome-disk-utility \
     gnome-tweaks \
+    file-roller\
+    loupe \
     xdg-desktop-portal-gnome
 
 echo "GNOME desktop installed successfully"
@@ -49,16 +51,35 @@ echo "::group:: Install Additional Utilities"
 dnf -y install \
     kitty \
     flatpak \
+    xdg-desktop-portal xdg-desktop-portal-gtk \
+    xorg-x11-server-Xwayland \
+    polkit accountsservice \
+    gvfs gvfs-mtp gvfs-gphoto2 gvfs-smb udisks2 \
+    power-profiles-daemon rtkit \
+    xdg-utils shared-mime-info desktop-file-utils \
+    alsa-utils pavucontrol \
+    brightnessctl playerctl \
+    fprintd switcheroo-control \
+    firewalld firewall-config \
     pipewire wireplumber pipewire-pulseaudio pipewire-alsa \
     NetworkManager-wifi bluez bluez-obexd \
+    NetworkManager-tui \
+    cups cups-pk-helper system-config-printer \
+    iio-sensor-proxy geoclue2 bolt \
     upower \
     xdg-user-dirs wl-clipboard \
     google-noto-color-emoji-fonts google-noto-sans-fonts \
+    google-noto-serif-fonts google-noto-sans-mono-fonts \
+    liberation-fonts dejavu-sans-fonts \
     coreutils
 
 # Enable necessary services.
 systemctl enable NetworkManager
 systemctl enable bluetooth
+systemctl enable cups
+systemctl enable power-profiles-daemon
+systemctl enable switcheroo-control
+systemctl enable firewalld
 
 echo "Additional utilities installed"
 echo "::endgroup::"
