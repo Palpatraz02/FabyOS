@@ -23,7 +23,8 @@ copr_install_isolated "ryanabx/cosmic-epoch" \
     cosmic-files \
     cosmic-edit \
     cosmic-term \
-    cosmic-workspaces
+    cosmic-workspaces \
+    cosmic-monitor
 
 echo "COSMIC desktop installed successfully"
 echo "::endgroup::"

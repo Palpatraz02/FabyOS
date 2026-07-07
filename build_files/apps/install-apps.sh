@@ -13,7 +13,11 @@ bash /ctx/apps/brave.sh
 
 bash /ctx/apps/proton.sh
 
+## Install Zed
+bash /ctx/apps/zed.sh
 
+## Install Codex CLI
+bash /ctx/apps/codex.sh
 
 dnf -y install papirus-icon-theme bibata-cursor-theme
 dnf -y install $(grep -vE '^\s*(#|$)' /ctx/apps/pkgs.txt)

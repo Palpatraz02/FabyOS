@@ -25,3 +25,4 @@ chezmoi
 age
 curl
 fontconfig
+bubblewrap
