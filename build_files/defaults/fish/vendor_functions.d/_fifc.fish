@@ -35,6 +35,7 @@ function _fifc
             --select-1 \
             --exit-0 \
             --ansi \
+            --height=40% \
             --tabstop=4 \
             --multi \
             --reverse \
