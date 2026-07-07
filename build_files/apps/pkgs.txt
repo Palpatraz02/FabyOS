@@ -26,3 +26,4 @@ age
 curl
 fontconfig
 bubblewrap
+zed
