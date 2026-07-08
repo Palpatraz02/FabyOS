@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-source /ctx/dnf.sh
-
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
@@ -76,7 +74,6 @@ chmod +x /usr/libexec/users-setup/first-login.sh
 
 chmod +x /usr/libexec/users-setup/faby02/setup.sh
 chmod +x /usr/libexec/users-setup/faby02/restore.sh
-chmod +x /usr/libexec/users-setup/faby02/configure_brave.sh
 
 # 2. Install the user service
 mkdir -p /usr/lib/systemd/user/
