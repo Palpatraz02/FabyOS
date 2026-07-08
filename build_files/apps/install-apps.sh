@@ -2,11 +2,6 @@
 
 set -eoux pipefail
 
-## Install cosmic
-bash /ctx/apps/cosmic.sh
-
-## Install chrome
-# bash /ctx/apps/chrome.sh
 
 ## Install brave
 bash /ctx/apps/brave.sh

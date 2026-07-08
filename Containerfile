@@ -3,7 +3,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM quay.io/rakuos/rakuos-base-nvidia:latest
+FROM quay.io/rakuos/rakuos-cosmic-nvidia:latest
 RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
     sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
     sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release && \
