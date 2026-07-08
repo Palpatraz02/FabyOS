@@ -11,7 +11,8 @@ bash /ctx/apps/proton.sh
 ## Install Codex CLI
 bash /ctx/apps/codex.sh
 
-dnf -y install papirus-icon-theme bibata-cursor-theme
+dnf -y install papirus-icon-theme
+dnf -y install --nogpgcheck --repofrompath 'terra-bibata,https://repos.fyralabs.com/terra$releasever' bibata-cursor-theme
 dnf -y install $(grep -vE '^\s*(#|$)' /ctx/apps/pkgs.txt)
 
 ## Install JetBrainsMono Nerd Font
