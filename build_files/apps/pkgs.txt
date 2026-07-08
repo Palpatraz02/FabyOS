@@ -28,3 +28,11 @@ fontconfig
 bubblewrap
 zed
 flatpak
+
+# GNOME extensions
+gnome-extensions-app
+gnome-shell-extension-appindicator
+gnome-shell-extension-blur-my-shell
+gnome-shell-extension-dash-to-panel
+gnome-shell-extension-just-perfection
+gnome-shell-extension-mosaic

@@ -11,6 +11,26 @@ dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
 
+## GNOME extension defaults
+mkdir -p /etc/dconf/db/local.d
+mapfile -t fabyos_gnome_extensions < <(
+    printf '%s\n' \
+        'appindicatorsupport@rgcjonas.gmail.com' \
+        'blur-my-shell@aunetx' \
+        'dash-to-panel@jderose9.github.com' \
+        'just-perfection-desktop@just-perfection'
+    find /usr/share/gnome-shell/extensions -maxdepth 1 -type d -iname '*mosaic*' -printf '%f\n' 2>/dev/null
+)
+fabyos_gnome_extensions_value="$(
+    printf "'%s'\n" "${fabyos_gnome_extensions[@]}" |
+        awk 'NF && !seen[$0]++ { values = values sep $0; sep = ", " } END { print "[" values "]" }'
+)"
+cat > /etc/dconf/db/local.d/00-fabyos-gnome-extensions << 'GNOMEEXTENSIONS'
+[org/gnome/shell]
+GNOMEEXTENSIONS
+printf 'enabled-extensions=%s\n' "$fabyos_gnome_extensions_value" >> /etc/dconf/db/local.d/00-fabyos-gnome-extensions
+dconf update
+
 ## Theme defaults
 mkdir -p /usr/share/icons/default
 cat > /usr/share/icons/default/index.theme << 'THEMEDEFAULTS'
