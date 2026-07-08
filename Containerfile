@@ -1,9 +1,14 @@
 # Allow build scripts to be referenced without being copied into the final image
+ARG FEDORA_MAJOR_VERSION=44
+ARG NVIDIA_AKMOD_IMAGE=akmods-nvidia-open
+
 FROM scratch AS ctx
 COPY build_files /
 
+FROM ghcr.io/ublue-os/${NVIDIA_AKMOD_IMAGE}:main-${FEDORA_MAJOR_VERSION} AS akmods_nvidia
+
 # Base Image
-FROM ghcr.io/ublue-os/aurora-nvidia-open:latest
+FROM quay.io/fedora/fedora-bootc:${FEDORA_MAJOR_VERSION}
 RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
     sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
     sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release && \
@@ -16,7 +21,7 @@ RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
 #
 # ... and so on, here are more base images
 # Universal Blue Images: https://github.com/orgs/ublue-os/packages
-# Fedora base image: quay.io/fedora/fedora-bootc:41
+# Fedora base image: quay.io/fedora/fedora-bootc:44
 # CentOS base images: quay.io/centos-bootc/centos-bootc:stream10
 
 ### [IM]MUTABLE /opt
@@ -35,6 +40,7 @@ RUN rm /opt && mkdir /opt
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=bind,from=akmods_nvidia,source=/rpms,target=/tmp/akmods-nv-rpms \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \

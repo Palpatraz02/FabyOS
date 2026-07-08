@@ -7,9 +7,12 @@ source /ctx/dnf.sh
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
+dnf -y install dnf5-plugins
 dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
+bash /ctx/apps/cosmic.sh
 bash /ctx/apps/install-apps.sh
+bash /ctx/nvidia.sh
 
 ## Theme defaults
 mkdir -p /usr/share/icons/default
