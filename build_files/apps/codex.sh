@@ -5,10 +5,12 @@ set -oue pipefail
 echo "::group:: Install Codex CLI"
 
 codex_package_dir="/usr/lib/codex"
+codex_release="${CODEX_RELEASE:-0.143.0}"
 install -d -m 0755 "${codex_package_dir}" /usr/bin
 
 curl -fsSL https://chatgpt.com/codex/install.sh | \
     CODEX_NON_INTERACTIVE=1 \
+    CODEX_RELEASE="${codex_release}" \
     CODEX_INSTALL_DIR=/usr/bin \
     CODEX_HOME="${codex_package_dir}" \
     sh

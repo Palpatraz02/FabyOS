@@ -6,7 +6,7 @@ set -ouex pipefail
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
 ##! Temp fix of terra
-curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo -o /etc/yum.repos.d/terra.repo
+# curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo -o /etc/yum.repos.d/terra.repo
 dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
@@ -15,7 +15,7 @@ bash /ctx/apps/install-apps.sh
 mkdir -p /usr/share/icons/default
 cat > /usr/share/icons/default/index.theme << 'THEMEDEFAULTS'
 [Icon Theme]
-Inherits=Bibata-Modern-Ice
+Inherits=Bibata-Modern-Classic
 THEMEDEFAULTS
 
 mkdir -p /etc/skel/.config/gtk-3.0 /etc/skel/.config/gtk-4.0
@@ -43,22 +43,6 @@ cp /ctx/res/logo/logo.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
 
 cp /ctx/res/logo/logo.png /usr/share/pixmaps/system-logo-white.png
 
-## Change GRUB option name
-if [ -f /etc/default/grub ]; then
-    sed -i 's/^GRUB_DISTRIBUTOR=.*/GRUB_DISTRIBUTOR="FabyOS"/' /etc/default/grub
-
-    if grep -q "^GRUB_TIMEOUT=" /etc/default/grub; then
-        sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/' /etc/default/grub
-    else
-        echo 'GRUB_TIMEOUT=1' >> /etc/default/grub
-    fi
-
-    if grep -q "^GRUB_TIMEOUT_STYLE=" /etc/default/grub; then
-        sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
-    else
-        echo 'GRUB_TIMEOUT_STYLE=hidden' >> /etc/default/grub
-    fi
-fi
 
 ## Rebuild initramfs to apply the new boot logo
 KVER=$(cd /usr/lib/modules && echo *)
@@ -73,8 +57,8 @@ systemctl enable podman.socket
 rm -f /etc/yum.repos.d/terra*.repo
 
 # Temporary fix for repo.rakuos.org 403 Forbidden error during ISO build
-sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.d/*.repo || true
-sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
+# sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.d/*.repo || true
+# sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
 
 ## System setup
 cp -r /ctx/system-setup /usr/libexec/
@@ -98,6 +82,4 @@ cp /ctx/users-setup/first-login.service /usr/lib/systemd/user/
 # 3. Enable the service globally for all users
 systemctl --global enable first-login.service
 
-dnf5 -y clean all
-rm -rf /run/dnf /run/selinux-policy
-rm -rf /var/lib/dnf
+bash /ctx/cleanup.sh
