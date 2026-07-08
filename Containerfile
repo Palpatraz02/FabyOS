@@ -3,18 +3,12 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM quay.io/rakuos/rakuos-cosmic-nvidia:latest
+FROM ghcr.io/ublue-os/cosmic:stable
 RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
     sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
     sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release && \
     sed -i 's/^VARIANT=.*/VARIANT="FabyOS"/' /etc/os-release && \
     sed -i 's/^VARIANT_ID=.*/VARIANT_ID=fabyos/' /etc/os-release
-
-RUN if [ -d /boot/efi/EFI/rakuos ]; \
-    then mv /boot/efi/EFI/rakuos /boot/efi/EFI/fedora; fi && \
-    if [ -d /usr/lib/ostree-boot/efi/EFI/rakuos ]; \
-    then mv /usr/lib/ostree-boot/efi/EFI/rakuos /usr/lib/ostree-boot/efi/EFI/fedora; fi && \
-    bootupctl backend generate-update-metadata
 
     ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
