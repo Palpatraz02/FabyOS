@@ -2,6 +2,11 @@
 
 set -ouex pipefail
 
+dnf() {
+    command dnf5 "$@"
+}
+export -f dnf
+
 ## DNF5 Speedup
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
