@@ -44,6 +44,12 @@ cp /ctx/res/logo/logo.png /usr/share/plymouth/themes/spinner/bgrt-fallback.png
 
 cp /ctx/res/logo/logo.png /usr/share/pixmaps/system-logo-white.png
 
+## Brand boot loader entries that may already exist in the base image
+if [ -d /boot/loader/entries ]; then
+    find /boot/loader/entries -type f -name '*.conf' -exec \
+        sed -i -E 's/^(title[[:space:]]+)Fedora( Linux)?/\1FabyOS/' {} +
+fi
+
 
 ## Rebuild initramfs to apply the new boot logo
 KVER=$(cd /usr/lib/modules && echo *)

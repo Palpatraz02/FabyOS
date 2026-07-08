@@ -9,11 +9,15 @@ FROM ghcr.io/ublue-os/${NVIDIA_AKMOD_IMAGE}:main-${FEDORA_MAJOR_VERSION} AS akmo
 
 # Base Image
 FROM quay.io/fedora/fedora-bootc:${FEDORA_MAJOR_VERSION}
-RUN sed -i 's/^ID=.*/ID=fedora/' /etc/os-release && \
-    sed -i 's/^NAME=.*/NAME="FabyOS"/' /etc/os-release && \
-    sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' /etc/os-release && \
-    sed -i 's/^VARIANT=.*/VARIANT="FabyOS"/' /etc/os-release && \
-    sed -i 's/^VARIANT_ID=.*/VARIANT_ID=fabyos/' /etc/os-release
+RUN sed -i \
+        -e 's/^ID=.*/ID=fedora/' \
+        -e 's/^NAME=.*/NAME="FabyOS"/' \
+        -e 's/^PRETTY_NAME=.*/PRETTY_NAME="FabyOS"/' \
+        -e 's/^VARIANT=.*/VARIANT="FabyOS"/' \
+        -e 's/^VARIANT_ID=.*/VARIANT_ID=fabyos/' \
+        /usr/lib/os-release && \
+    ln -sf ../usr/lib/os-release /etc/os-release && \
+    printf 'PRETTY_HOSTNAME=FabyOS\n' > /etc/machine-info
 
     ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
