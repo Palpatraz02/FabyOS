@@ -70,7 +70,6 @@ dnf -y install \
     gvfs-mtp \
     gvfs-smb \
     iio-sensor-proxy \
-    kitty \
     liberation-fonts \
     pipewire \
     pipewire-alsa \
