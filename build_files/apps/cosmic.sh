@@ -45,6 +45,9 @@ echo "::group:: Install Desktop Utilities"
 dnf -y install \
     NetworkManager-tui \
     NetworkManager-wifi \
+    NetworkManager-openvpn \
+    NetworkManager-vpnc \
+    NetworkManager-l2tp \
     accountsservice \
     alsa-utils \
     bluez \
@@ -87,7 +90,12 @@ dnf -y install \
     xdg-desktop-portal-gtk \
     xdg-user-dirs \
     xdg-utils \
-    xorg-x11-server-Xwayland
+    xorg-x11-server-Xwayland \
+    avahi \
+    nss-mdns \
+    fwupd \
+    usbutils \
+    pciutils \
 
 systemctl enable NetworkManager
 systemctl enable bluetooth
