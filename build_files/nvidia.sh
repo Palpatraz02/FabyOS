@@ -29,7 +29,6 @@ fi
 
 dnf -y install \
     libnvidia-fbc \
-    libnvidia-ml.i686 \
     libva-nvidia-driver \
     mesa-dri-drivers.i686 \
     mesa-filesystem.i686 \
