@@ -6,9 +6,8 @@ set -ouex pipefail
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
 dnf -y install dnf5-plugins
-
-#dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
-dnf install -y --nogpgcheck --repofrompath 'terra-bootstrap,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf config-manager setopt terra.enabled=1
+dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
 
