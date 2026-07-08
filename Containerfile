@@ -1,14 +1,11 @@
 # Allow build scripts to be referenced without being copied into the final image
-ARG FEDORA_MAJOR_VERSION=44
-ARG NVIDIA_AKMOD_IMAGE=akmods-nvidia-open
 
 FROM scratch AS ctx
 COPY build_files /
 
-FROM ghcr.io/ublue-os/${NVIDIA_AKMOD_IMAGE}:main-${FEDORA_MAJOR_VERSION} AS akmods_nvidia
-
 # Base Image
-FROM quay.io/fedora/fedora-bootc:${FEDORA_MAJOR_VERSION}
+FROM ghcr.io/ublue-os/bazzite-gnome-nvidia:stable
+
 RUN sed -i \
         -e 's/^ID=.*/ID=fedora/' \
         -e 's/^NAME=.*/NAME="FabyOS"/' \
@@ -44,7 +41,6 @@ RUN rm -rf /opt && mkdir /opt
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=bind,from=akmods_nvidia,source=/rpms,target=/tmp/akmods-nv-rpms \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
