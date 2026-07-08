@@ -57,10 +57,6 @@ systemctl enable podman.socket
 
 rm -f /etc/yum.repos.d/terra*.repo
 
-# Temporary fix for repo.rakuos.org 403 Forbidden error during ISO build
-# sed -i 's|^gpgkey=https://repo.rakuos.org/pubkey.gpg|#gpgkey=|g' /etc/yum.repos.d/*.repo || true
-# sed -i 's|^gpgcheck=1|gpgcheck=0|g' /etc/yum.repos.d/rakuos*.repo || true
-
 ## System setup
 cp -r /ctx/system-setup /usr/libexec/
 chmod +x /usr/libexec/system-setup/first-boot.sh
