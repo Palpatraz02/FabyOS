@@ -11,40 +11,6 @@ dnf -y install terra-release
 
 bash /ctx/apps/install-apps.sh
 
-## GNOME extensions not packaged in Fedora
-mosaic_extension_uuid="gnome-mosaic@jardon.github.com"
-mosaic_extension_dir="/usr/share/gnome-shell/extensions/${mosaic_extension_uuid}"
-mosaic_extension_tmpdir="$(mktemp -d)"
-curl -fsSL \
-    "https://extensions.gnome.org/download-extension/${mosaic_extension_uuid}.shell-extension.zip?version_tag=71184" \
-    -o "${mosaic_extension_tmpdir}/mosaic.zip"
-rm -rf "${mosaic_extension_dir}"
-mkdir -p "${mosaic_extension_dir}"
-unzip -q "${mosaic_extension_tmpdir}/mosaic.zip" -d "${mosaic_extension_dir}"
-find "${mosaic_extension_dir}" -type d -exec chmod 0755 {} \;
-find "${mosaic_extension_dir}" -type f -exec chmod 0644 {} \;
-rm -rf "${mosaic_extension_tmpdir}"
-
-## GNOME extension defaults
-mkdir -p /etc/dconf/db/local.d
-mapfile -t fabyos_gnome_extensions < <(
-    printf '%s\n' \
-        'appindicatorsupport@rgcjonas.gmail.com' \
-        'blur-my-shell@aunetx' \
-        'dash-to-panel@jderose9.github.com' \
-        'gnome-mosaic@jardon.github.com' \
-        'just-perfection-desktop@just-perfection'
-)
-fabyos_gnome_extensions_value="$(
-    printf "'%s'\n" "${fabyos_gnome_extensions[@]}" |
-        awk 'NF && !seen[$0]++ { values = values sep $0; sep = ", " } END { print "[" values "]" }'
-)"
-cat > /etc/dconf/db/local.d/00-fabyos-gnome-extensions << 'GNOMEEXTENSIONS'
-[org/gnome/shell]
-GNOMEEXTENSIONS
-printf 'enabled-extensions=%s\n' "$fabyos_gnome_extensions_value" >> /etc/dconf/db/local.d/00-fabyos-gnome-extensions
-dconf update
-
 ## Theme defaults
 mkdir -p /usr/share/icons/default
 cat > /usr/share/icons/default/index.theme << 'THEMEDEFAULTS'

@@ -4,7 +4,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM ghcr.io/ublue-os/bazzite-gnome-nvidia:stable
+FROM quay.io/fedora-ostree-desktops/cosmic-atomic
 
 RUN sed -i \
         -e 's/^ID=.*/ID=fedora/' \
