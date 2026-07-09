@@ -4,7 +4,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM quay.io/fedora-ostree-desktops/cosmic-atomic
+FROM quay.io/fedora-ostree-desktops/cosmic-atomic:44
 
 RUN sed -i \
         -e 's/^ID=.*/ID=fedora/' \
